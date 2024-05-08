@@ -1,5 +1,4 @@
 import sys
-from input_error import input_error
 from pathlib import Path
 from logs_handlers import *
 
@@ -8,15 +7,20 @@ from logs_handlers import *
 def main(): 
         try:
             path = Path(sys.argv[1])
-        except IndexError:
-                print("Невірка кількість аргументів.")
-        
-        logs_list = load_logs(path)
+        except IndexError as e: 
+            print(f"Use the path")
+            exit()
+
+        try:
+            logs_list = load_logs(path)
+        except FileNotFoundError: 
+            print("File does not exist")
+            exit()
         logs_count = count_logs_by_level(logs_list)
         logs_disp = display_log_counts(logs_count)
         
         if len(sys.argv) == 2: 
-            return logs_disp
+            print(logs_disp)
 
         elif len(sys.argv) == 3: 
             filtred_logs_list = filter_logs_by_level(logs_list, sys.argv[2].upper()) 
@@ -29,7 +33,7 @@ def main():
             print(message)
             
         else: 
-            print("wrong args") 
+            print("You need to use only 2 or 3 args") 
 
  
 

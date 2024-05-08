@@ -7,14 +7,13 @@ def parse_log_line(line: str) -> dict:
         "log_message": " ". join(message)
     }
 
-
 def load_logs(file_path: str) -> list: 
-    with open(file_path, "r") as file:
-        logs_list = [] 
-        for log in file: 
-            parsed_log = parse_log_line(log)
-            logs_list.append(parsed_log)
-        return logs_list
+        with open(file_path, "r") as file:
+            logs_list = [] 
+            for log in file: 
+                parsed_log = parse_log_line(log)
+                logs_list.append(parsed_log)
+            return logs_list
 
 
 def filter_logs_by_level(logs: list, level: str) -> list: 
@@ -37,11 +36,9 @@ def count_logs_by_level(logs: list) -> dict:
 
 
 def display_log_counts(counts: dict):
-    print("Рівень логування | Кількість")
-    print("-----------------|----------")
-    disp_massage = ""
+    disp_massage = "Рівень логування | Кількість\n-----------------|---------- \n"
     for level, count in counts.items():
         disp_massage += f"{level:<16} | {count}\n"
-    print(disp_massage)
+    return disp_massage
     
  
